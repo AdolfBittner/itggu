@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Телефонная книга</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/phonebook.css' %}"/>
+
+</head>
+
+<body>
+  <nav class="navbar  navbar-expand-lg fixed-top clean-navbar" >
+        <div class="container" id= 'searchmenu'><a class="navbar-brand logo" href="#" onclick="location.reload(); return false;"><img src="{% static 'img/logo.svg'%}" width="15%"/> </a><button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"></button>
+          <div class="menu">
+            <input type="text" placeholder="Поиск" class="search">
+          </div>
+
+            <div class="collapse navbar-collapse "
+                id="navcol-1">
+                <ul class="nav navbar-nav ms-auto" >
+
+                  <!--  <li class="nav-item" role="presentation"><a class="nav-link" href="#">Печать</a></li> -->
+                  <li class="nav-item" role="presentation"><a class="nav-link" data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop" aria-controls="offcanvasTop" href="#">Фильтры поиска</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" id='themeToggle' href="#">Тёмная тема</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+  <div class = 'container' id = 'phone' >
+
+
+  <div class="row">
+
+    <div class="col-md-12">
+
+
+    <div class="table-responsive" >
+      <table class="table table-striped" id="table1">
+        <thead>
+          <tr class="table-primary align-middle">
+            <th data-type="string">Телефон:</th>
+            <th data-type="string">Сотрудник:</th>
+            <th data-type="string">Должность:</th>
+            <th data-type="string">Отдел:</th>
+            <th data-type="string">Почта:</th>
+            <th data-type="string">Фото:</th>
+
+          </tr>
+        </thead>
+        <tbody class="list">
+            {% for contakt in Contacts %}
+
+      <tr class="align-middle">
+
+          <td class="telnum" id ='telnum'>{{contakt.NumTel}}</a></td>
+          <td class="name"><a href="#" id = 'modalname' data-bs-toggle="offcanvas" value = "{{contakt.PolzovatelKontakti}}" data-bs-target="#offcanvasBottom" aria-controls="offcanvasBottom" >{{contakt.PolzovatelKontakti}}</a></td>
+          <td class="Dolznost">{{contakt.Dolznost}}</td>
+          <td class="Otdel">{{contakt.Otdel}}</td>
+          <td class="mail"id = 'mail'>{{contakt.MailAdress}}</td>
+          <td class="photo"><img id = "photocon" src = {{contakt.photo.url}} width="20%"> </td>
+		<input type="hidden" class="mobtel" value="{{contakt.mob}}"/>
+		<input type="hidden" class="kabper" value="{{contakt.kabinet}}"/>
+        </tr>
+          {%endfor%}
+          </tbody>
+        </table>
+</div>
+
+</div>
+
+
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasTop" aria-labelledby="offcanvasTopLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasTopLabel">Фильтры:</h5>
+
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Закрыть"></button>
+  </div>
+  <div class="offcanvas-body">
+
+      <dt>Отдел:</dt>
+      <ul>
+          {% for otd in Otdl %}
+      <li><a href='#' class= 'textsearch'>{{otd.Otdel}}</a></li>
+      {%endfor%}
+
+    </ul>
+
+  </div>
+</div>
+
+
+<div class="offcanvas offcanvas-bottom h-50" tabindex="-1" id="offcanvasBottom" aria-labelledby="offcanvasBottomLabel" data-bs-scroll="true">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasBottomLabel">Бла-бла имя фамилия</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Закрыть"></button>
+  </div>
+  <div class="offcanvas-body small">
+    <div class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <h5>Отдел:</h5>
+      <h5>Должность:</h5>
+      <h5>Телефон:</h5>
+      <h5>Мобильный Телефон:</h5>
+      <h5>Почта:</h5>
+      <h5>Кабинет:</h5>
+    </div>
+    <div class="col">
+      <h5 id='otd'>-</h5>
+      <h5 id='dolz'>-</h5>
+      <h5 id='telst'>-</h5>
+      <h5 id= 'mobtel'>-</h5>
+      <h5 id='mailadr'>-</h5>
+      <h5 id='kab'>-</h5>
+    </div>
+    <div class="col">
+      <td class="photo" ><img id = 'photo' src = '#' width="35%" </td>
+    </div>
+  </div>
+
+</div>
+
+  </div>
+</div>
+    </div>
+</div>
+
+
+</script>
+</body>
+
+<script src="{% static 'js/bootstrap.bundle.min.js'%}"></script>
+<script src="{% static 'js/jquery.min.js'%}"></script>
+<script src="{% static 'js/phonebook.js'%}"></script>
+<script src="{% static 'js/list.min.js'%}"></script>
+
+
+
+</html>
